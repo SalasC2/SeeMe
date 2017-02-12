@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/SalasC2/SeeMe#readme",
   "dependencies": {
+    "chrono-node": "^1.2.5",
     "express": "^4.14.1",
     "flockos": "0.0.6"
   }
