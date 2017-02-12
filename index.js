@@ -14,4 +14,6 @@ app.listen(8080, function() {
 });
 
 flock.events.on('app.install', function(event, callback) {
+	store.saveToken(event.userId, event.token);
+	callback();
 });
