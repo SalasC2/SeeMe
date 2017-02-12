@@ -20,6 +20,26 @@ flock.events.on('app.install', function(event, callback) {
 	callback();
 });
 
+flock.events.on('client.pressButton', function (event, callback) {
+	var data = store.allUsers();
+
+	for (var i = 0; i < data.length; i++) {
+		data[i]
+		var user = {
+	        userId: event.userId,
+	        firstName: data[i]['itemName'],
+	        lastName: data[i]['price'],
+	        job: data[i]['image'],
+	        email: data[i]['description'],
+	        discoverable: true,
+	        localUsers: "1, 2, 3, 4, 5"
+	    };
+	    sendUser(user);
+	}
+	
+    callback(null, { text: 'Finding Local Users...' });
+});
+
 flock.events.on('client.slashCommand', function (event, callback) {
     var r = parseUser(event.text);
     console.log('parse result', r);
@@ -51,7 +71,6 @@ var parseUser = function (text) {
 };
 
 var sendUser = function (user) {
-	console.log('bot will respond');
     flock.chat.sendMessage(config.botToken, {
         to: user.userId,
         text: user.firstName + " " + user.lastName
