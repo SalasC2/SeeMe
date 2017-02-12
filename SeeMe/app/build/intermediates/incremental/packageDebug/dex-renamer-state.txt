@@ -1,0 +1,7 @@
+#Sat Feb 11 15:40:11 PST 2017
+base.0=/Users/armandgray/Desktop/Coding/mobile/hackathon/SeeMe/SeeMe/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c2ae941d8b4b3501b946646e8b3f2131b3f8bb22
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/armandgray/Desktop/Coding/mobile/hackathon/SeeMe/SeeMe/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fe3c9e64c4559d9258d577f567c712de532f479e/classes.dex
+base.1=/Users/armandgray/Desktop/Coding/mobile/hackathon/SeeMe/SeeMe/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fe3c9e64c4559d9258d577f567c712de532f479e
+file.0=/Users/armandgray/Desktop/Coding/mobile/hackathon/SeeMe/SeeMe/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c2ae941d8b4b3501b946646e8b3f2131b3f8bb22/classes.dex
