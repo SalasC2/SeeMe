@@ -29,9 +29,9 @@ flock.events.on('client.slashCommand', function (event, callback) {
             userId: event.userId,
             firstName: r[0],
             lastName: r[1],
-            email: r[2],
-            job: r[3],
-            discoverable: r[4],
+            job: r[2],
+            email: r[3],
+            discoverable: true,
             localUsers: "1, 2, 3, 4, 5"
         };
         console.log('adding user', user);
@@ -44,7 +44,7 @@ flock.events.on('client.slashCommand', function (event, callback) {
 });
 
 var parseUser = function (text) {
-    if (text.length > 4) {
+    if (text.length > 3) {
         return text.split(" ");
     } else {
         return null;
@@ -56,6 +56,7 @@ var sendUser = function (user) {
     flock.chat.sendMessage(config.botToken, {
         to: user.userId,
         text: user.firstName + " " + user.lastName
+        + "\nRole: " + user.job
     });
 };
 
