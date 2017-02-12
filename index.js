@@ -1,6 +1,7 @@
 var config = require('./config.js');
 var flock = require('flockos');
 var express = require('express');
+var store = require('./store');
 
 flock.appId = config.appId;
 flock.appSecret = config.appSecret;
