@@ -55,9 +55,13 @@ exports.removeUser = function (user) {
     }
 };
 
-exports.addUser = function (user) {
-    console.log('push: ', user);
-    db.data.push(user);
+exports.getUser = function (userId) {
+    // check all id for user and return
+};
+
+exports.connectUsers = function (user) {
+    console.log('post: ', user);
+    // POST Request
 };
 
 exports.allUsers = function () {

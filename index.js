@@ -35,7 +35,6 @@ flock.events.on('client.slashCommand', function (event, callback) {
             localUsers: "1, 2, 3, 4, 5"
         };
         console.log('adding user', user);
-		store.addUser(user);
         sendUser(user);
         callback(null, { text: 'User added' });
     } else {
