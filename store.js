@@ -4,6 +4,7 @@ var request = require('request');
 
 var fs = require('fs');
 var dbFile = 'db.json';
+var url = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
 
 // Everything is stored here
 
@@ -13,19 +14,18 @@ var db = {
 };
 
 // Read db file on startup and save on exit
-var url = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
-
-request({
-    url: url,
-    json: true
-}, function (error, response, body) {
-
-    if (!error && response.statusCode === 200) {
-        console.log(body) // Print the json response
-    }
-})
 
 var readDatabase = function () {
+
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log(JSON.parse(body));
+        }
+    })
+
     try {
         var stringContent = fs.readFileSync(dbFile);
         db = JSON.parse(stringContent);
