@@ -10,30 +10,23 @@ var url = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
 
 var db = {
     users: {},
-    alarms: []
+    data: []
 };
 
 // Read db file on startup and save on exit
 
 var readDatabase = function () {
-
     request({
         url: url,
         json: true
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            console.log(JSON.parse(body));
+            console.log(body);
+            db.data = body;
+            saveDatabase();
         }
-    })
-
-    try {
-        var stringContent = fs.readFileSync(dbFile);
-        db = JSON.parse(stringContent);
-    } catch (e) {
-        console.log('No db found, creating %s', dbFile);
-    }
+    });
 };
-
 
 var saveDatabase = function () {
     console.log('Saving db');
@@ -55,32 +48,18 @@ exports.saveToken = function (userId, token) {
     db.users[userId] = token;
 };
 
-exports.peekAlarm = function () {
-    if (db.alarms.length > 0) {
-        return db.alarms[0];
-    } else {
-        return null;
-    }
-};
-
 exports.removeUser = function (user) {
-    var index = db.alarms.indexOf(user);
+    var index = db.data.indexOf(user);
     if (index !== -1) {
-        db.alarms.splice(index, 1);
+        db.data.splice(index, 1);
     }
 };
 
 exports.addUser = function (user) {
     console.log('push: ', user);
-    db.alarms.push(user);
-};
-
-exports.userAlarms = function (userId) {
-    return db.alarms.filter(function (alarm) {
-        return alarm.userId === userId;
-    });
+    db.data.push(user);
 };
 
 exports.allUsers = function () {
-    return db.alarms;
+    return db.data;
 };
