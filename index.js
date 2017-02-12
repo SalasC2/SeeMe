@@ -23,14 +23,19 @@ flock.events.on('app.install', function(event, callback) {
 flock.events.on('client.slashCommand', function (event, callback) {
     var r = parseDate(event.text);
     console.log('parse result', r);
+    console.log('event contents: ', event.text);
     if (r) {
         var alarm = {
             userId: event.userId,
-            time: r.date.getTime(),
-            text: event.text.slice(r.end).trim()
+            firstName: r.date.getTime(),
+            lastName: event.text.slice(r.end).trim(),
+            email: "",
+            job: "working",
+            discoverable: "true",
+            localUsers: "1, 2, 3, 4, 5"
         };
         console.log('adding alarm', alarm);
-        addAlarm(alarm);
+	    scheduleAlarm(alarm);
         callback(null, { text: 'Alarm added' });
     } else {
         callback(null, { text: 'Alarm time not specified' });
@@ -48,11 +53,6 @@ var parseDate = function (text) {
     } else {
         return null;
     }
-};
-
-var addAlarm = function (alarm) {
-    store.addAlarm(alarm);
-    scheduleAlarm(alarm);
 };
 
 var scheduleAlarm = function (alarm) {
