@@ -40,6 +40,11 @@ flock.events.on('client.pressButton', function (event, callback) {
     callback(null, { text: 'Finding Local Users...' });
 });
 
+flock.events.on('client.messageAction', function(event, callback) {
+	console.log(event);
+    callback(null, { text: 'Sending Request...' });
+});
+
 flock.events.on('client.slashCommand', function (event, callback) {
     var r = parseUser(event.text);
     console.log('parse result', r);
