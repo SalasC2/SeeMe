@@ -50,19 +50,16 @@ exports.peekAlarm = function () {
     }
 };
 
-exports.removeAlarm = function (alarm) {
-    var index = db.alarms.indexOf(alarm);
+exports.removeUser = function (user) {
+    var index = db.alarms.indexOf(user);
     if (index !== -1) {
         db.alarms.splice(index, 1);
     }
 };
 
-exports.addAlarm = function (alarm) {
-    var alarms = db.alarms;
-    var insertAt = Math.max(0, alarms.findIndex(function (x) {
-        return alarm.time < x.time;
-    }));
-    alarms.splice(insertAt, 0, alarm);
+exports.addUser = function (user) {
+    console.log('push: ', user);
+    db.alarms.push(user);
 };
 
 exports.userAlarms = function (userId) {
@@ -71,6 +68,6 @@ exports.userAlarms = function (userId) {
     });
 };
 
-exports.allAlarms = function () {
+exports.allUsers = function () {
     return db.alarms;
 };

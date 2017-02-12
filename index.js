@@ -21,11 +21,11 @@ flock.events.on('app.install', function(event, callback) {
 });
 
 flock.events.on('client.slashCommand', function (event, callback) {
-    var r = parseDate(event.text);
+    var r = parseUser(event.text);
     console.log('parse result', r);
     console.log('event contents: ', event.text);
     if (r) {
-        var alarm = {
+        var user = {
             userId: event.userId,
             firstName: r.date.getTime(),
             lastName: event.text.slice(r.end).trim(),
@@ -34,15 +34,16 @@ flock.events.on('client.slashCommand', function (event, callback) {
             discoverable: "true",
             localUsers: "1, 2, 3, 4, 5"
         };
-        console.log('adding alarm', alarm);
-	    scheduleAlarm(alarm);
-        callback(null, { text: 'Alarm added' });
+        console.log('adding user', user);
+		store.addUser(user);
+        sendUser(user);
+        callback(null, { text: 'User added' });
     } else {
-        callback(null, { text: 'Alarm time not specified' });
+        callback(null, { text: 'User not specified' });
     }
 });
 
-var parseDate = function (text) {
+var parseUser = function (text) {
     var r = chrono.parse(text);
     if (r && r.length > 0) {
         return {
@@ -55,21 +56,11 @@ var parseDate = function (text) {
     }
 };
 
-var scheduleAlarm = function (alarm) {
-    var delay = Math.max(0, alarm.time - new Date().getTime());
-    setTimeout(function () {
-        sendAlarm(alarm);
-        store.removeAlarm(alarm);
-    }, delay);
-};
-
-// schedule all alarms saved in db
-store.allAlarms().forEach(scheduleAlarm);
-
-var sendAlarm = function (alarm) {
+var sendUser = function (user) {
+	console.log('bot will respond');
     flock.chat.sendMessage(config.botToken, {
-        to: alarm.userId,
-        text: alarm.text
+        to: user.userId,
+        text: user.firstName
     });
 };
 
