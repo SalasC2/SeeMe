@@ -1,3 +1,5 @@
+var request = require('request');
+
 'use strict';
 
 var fs = require('fs');
@@ -11,6 +13,17 @@ var db = {
 };
 
 // Read db file on startup and save on exit
+var url = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
+
+request({
+    url: url,
+    json: true
+}, function (error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+        console.log(body) // Print the json response
+    }
+})
 
 var readDatabase = function () {
     try {
@@ -20,6 +33,7 @@ var readDatabase = function () {
         console.log('No db found, creating %s', dbFile);
     }
 };
+
 
 var saveDatabase = function () {
     console.log('Saving db');
@@ -33,7 +47,6 @@ process.on('SIGTERM', function () { console.log('SIGTERM'); process.exit(); });
 process.on('exit', saveDatabase);
 
 // Accessors
-
 exports.getToken = function (userId) {
     return db.users[userId];
 };
