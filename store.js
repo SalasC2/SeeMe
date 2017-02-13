@@ -59,9 +59,9 @@ exports.getUser = function (userId) {
     // check all id for user and return
 };
 
-exports.connectUsers = function (user) {
-    console.log('post: ', user);
-    // POST Request
+exports.connectUsers = function (firstName, lastName, job) {
+    console.log('Post: ', firstName + " " + lastName
+        + "\nRole: " + job);
 };
 
 exports.allUsers = function () {

@@ -11,8 +11,8 @@ var app = express();
 app.use(flock.events.tokenVerifier);
 app.post('/events', flock.events.listener);
 
-app.listen(8080, function() {
-	console.log('Listening on 8080');
+app.listen(3000, function() {
+	console.log('Listening on 3000');
 });
 
 flock.events.on('app.install', function(event, callback) {
@@ -41,8 +41,35 @@ flock.events.on('client.pressButton', function (event, callback) {
 });
 
 flock.events.on('client.messageAction', function(event, callback) {
-	console.log(event);
-    callback(null, { text: 'Sending Request...' });
+	var message;
+	flock.chat.fetchMessages(
+		store.getToken(event.userId), 
+		{ chat: event.chat,
+			uids: event.messageUids },
+			function (error, response) { 
+				messages = response;
+				if (error) {
+					console.log(error);
+				} else {
+					console.log(messages[0].text);
+				}
+			}
+	);
+    // var r = parseUser(messages.text);
+    var r = ['Armand', 'Gray', 'Software Engineer', ''];
+	var user = {
+            userId: event.userId,
+            firstName: r[0],
+            lastName: r[1],
+            job: r[2],
+            email: r[3],
+            discoverable: true,
+            localUsers: "1, 2, 3, 4, 5"
+        };
+
+	store.connectUsers(user.firstName, user.lastName, user.job);
+
+    callback(null, { text: 'Sent Request to ' + user.firstName });
 });
 
 flock.events.on('client.slashCommand', function (event, callback) {
